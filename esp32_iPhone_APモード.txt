@@ -59,9 +59,9 @@ void loop()
     String send_msg = WiFi.softAPIP().toString() + "," + device_name;
     char hold_data[50];
     send_msg.toCharArray(hold_data, 50);
-    Serial.println(hold_data);
     char* data = hold_data;
 
+    Serial.println(hold_data);
     udp.broadcastTo(data, remote_port);
 
     timer_flag = false;

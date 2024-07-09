@@ -36,10 +36,10 @@ void setup()
   }
 
   WiFi.begin(wifi_name, wifi_pass);
-  while(WiFi.status() != WL_CONNECTED)
-  {
-    Serial.println("[WiFi_ERROR]Failed to connect to WiFi.");  //ここのエラーが出続ける時があります
-  }
+  // while(WiFi.status() != WL_CONNECTED)
+  // {
+  //   Serial.println("[WiFi_ERROR]Failed to connect to WiFi.");  // WiFiに接続できているのにエラーが出続けるときがある
+  // }
 
   int err = udp.listen(local_port);
   if(err != 1)
@@ -57,9 +57,12 @@ void loop()
   if(timer_flag)
   {
     String send_msg = WiFi.softAPIP().toString() + "," + device_name;
-    Serial.println(send_msg.c_str());
+    char hold_data[50];
+    send_msg.toCharArray(hold_data, 50);
+    Serial.println(hold_data);
+    char* data = hold_data;
 
-    udp.broadcastTo("192.168.128.180,mcu-esp-02", remote_port);
+    udp.broadcastTo(data, remote_port);
 
     timer_flag = false;
   }

@@ -61,7 +61,7 @@ void loop()
     send_msg.toCharArray(hold_data, 50);
     char* data = hold_data;
 
-    Serial.println(hold_data);
+    Serial.println(send_msg);
     udp.broadcastTo(data, remote_port);
 
     timer_flag = false;
